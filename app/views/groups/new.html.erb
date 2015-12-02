@@ -1,0 +1,14 @@
+<h1>Group</h1>
+
+<%= simple_form_for @group do |f|%>
+<% if @group.errors.any?%>
+<div class="alert alert-dismissible alert-danger">
+  <!-- <button type="button" class="close" data-dismiss="alert">&close;</button> -->
+  <strong>Oops!</strong> <a href="#" class="alert-link">Group Does't created</a> and try submitting again.
+</div>
+<p class="alert-link"><%= @group.errors %></p>
+<% end %>
+ <%= f.input :name%>
+ <%= f.input :description%>
+ <%= f.submit "Create a group" , class: "btn btn-primary" %>
+ <% end %>
