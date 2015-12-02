@@ -20,6 +20,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @group_membership = @group.memberships.new
   end
 
 
