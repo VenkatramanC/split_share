@@ -1,29 +1,28 @@
-<%= button_tag "Add people" , class: "btn btn-primary pull-right" ,data: {toggle: "modal" , target: "#addPeopleModal"}%> 
-  
-
-<h3><%= @group.name %></h3>
-<p><%= @group.description%></p>
-<!-- Button trigger modal -->
-<ul class="well">
-<% @members.each do |member|%>
-  <li><%= member.email %></li>
-<% end %>
+<%= button_tag("Add People", class: "btn btn-primary pull-right", data: {toggle: "modal", target: "#addPeopleModal"}) if current_user.can_invite_to?(@group) %>
+<h1><%= @group.name %></h1>
+<p><%= @group.description %></p>
+<ul>
+  <% @members.each do |member| %>
+    <li><%= member.email %></li>
+  <% end %>
 </ul>
-<!-- Modal -->
-<div class="modal fade" id="addPeopleModal" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add people to Group</h4>
-      </div>
-      <div class="modal-body">
-        <%= simple_form_for @group_membership do |f| %>
-          <%= f.input :email%>
-          <%= f.input :group_id , as: :hidden%>
-          <%= f.submit "Add Member",class: "btn btn-primary btn-block" %>
-        <% end %>
+
+<% if current_user.can_invite_to?(@group) %>
+  <div id="addPeopleModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add People to Group</h4>
+        </div>
+        <div class="modal-body">
+          <%= simple_form_for @group_membership do |f| %>
+            <%= f.input :email %>
+            <%= f.input :group_id, as: :hidden %>
+            <%= f.submit "Add Member", class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

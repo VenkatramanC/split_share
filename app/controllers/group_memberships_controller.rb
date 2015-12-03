@@ -17,7 +17,7 @@ class GroupMembershipsController < ApplicationController
         invited_user = User.invite!(:email => email)
         invited_user.invited_group = @group
         invited_user.save!
-        flash[:alert] = "No such User"
+        flash[:alert] = "Invitation Sent Successfully"
       else
         flash[:alert] = "Invalid E-Mail"
       end
