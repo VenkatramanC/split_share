@@ -4,7 +4,11 @@
 <h3><%= @group.name %></h3>
 <p><%= @group.description%></p>
 <!-- Button trigger modal -->
-
+<ul class="well">
+<% @members.each do |member|%>
+  <li><%= member.email %></li>
+<% end %>
+</ul>
 <!-- Modal -->
 <div class="modal fade" id="addPeopleModal" >
   <div class="modal-dialog" role="document">
@@ -16,7 +20,8 @@
       <div class="modal-body">
         <%= simple_form_for @group_membership do |f| %>
           <%= f.input :email%>
-          <%=f.submit "Add Member" %>
+          <%= f.input :group_id , as: :hidden%>
+          <%= f.submit "Add Member",class: "btn btn-primary btn-block" %>
         <% end %>
       </div>
     </div>
