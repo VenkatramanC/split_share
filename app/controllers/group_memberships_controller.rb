@@ -3,8 +3,14 @@ class GroupMembershipsController < ApplicationController
     @group = Group.find(params[:group_membership][:group_id])
     usr = User.find_by(email: params[:group_membership][:email])
     if usr
-      @group.add(usr)
-     flash[:notice] = "Member Added"
+      begin
+        @group.add(usr)
+      rescue
+        flash[:notice] = "Already existed in group"
+      
+    else
+      flash[:notice] = "Member Added"
+      end
     else
       flash[:alert] = "No Such user"
     end
