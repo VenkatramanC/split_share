@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203083446) do
+ActiveRecord::Schema.define(version: 20151203101103) do
 
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,12 +58,14 @@ ActiveRecord::Schema.define(version: 20151203083446) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
+    t.integer  "invited_group_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
+  add_index "users", ["invited_group_id"], name: "index_users_on_invited_group_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

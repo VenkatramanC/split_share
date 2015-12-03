@@ -14,7 +14,9 @@ class GroupMembershipsController < ApplicationController
 
     else
       if email.match(Devise.email_regexp)
-        User.invite!(:email => email)
+        invited_user = User.invite!(:email => email)
+        invited_user.invited_group = @group
+        invited_user.save!
         flash[:alert] = "No such User"
       else
         flash[:alert] = "Invalid E-Mail"
